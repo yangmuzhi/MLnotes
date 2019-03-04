@@ -14,4 +14,5 @@ nb.theta_c
 nb.theta_x
 y_pred = nb.predict(X)
 
+# 训练准确度
 np.sum(y_pred == y) / len(y)
