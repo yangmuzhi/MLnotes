@@ -1,7 +1,7 @@
-"""
-naive bayes Classifiers
-binary feature
-"""
+# using utf-8
+# naive bayes Classifiers
+# binary feature
+
 import numpy as np
 
 class Naive_bayes(object):
@@ -16,7 +16,7 @@ class Naive_bayes(object):
     def inference(self, X, y):
         num_date, num_feature = X.shape
 		
-		# ¼ÆËã²ÎÊı
+		# è®¡ç®—å‚æ•°
         for i in range(self.num_class):
             class_x = X[(y==i).ravel()]
             self.N_C[i] = len(class_x)
@@ -30,7 +30,7 @@ class Naive_bayes(object):
         num_date, num_feature = X.shape
         assert num_feature == self.num_feature
 		
-		# ¼ÆËãºóÑé·Ö×ÓµÄlogÖµ
+		# è®¡ç®—åéªŒåˆ†å¸ƒåˆ†å­çš„logå€¼
         predict_y = np.log(self.theta_c.reshape(-1, 1)) + \
                     np.dot(np.log(self.theta_x), X.T) + \
                     np.dot(np.log(1 - self.theta_x), 1 - X.T)
@@ -40,15 +40,15 @@ class Naive_bayes(object):
     def predict_prob(self, X):
         num_date, num_feature = X.shape
         assert num_feature == self.num_feature
-		# ¼ÆËãºóÑé·Ö×ÓµÄlogÖµ
+		# è®¡ç®—åéªŒåˆ†å¸ƒåˆ†å­çš„logå€¼
         predict_y = np.log(self.theta_c.reshape(-1, 1)) + \
                     np.dot(np.log(self.theta_x), X.T) + \
                     np.dot(np.log(1 - self.theta_x), 1 - X.T)
-		# Ã¿¸öÑù±¾·Ö×Ó×î´óÖµµÄÀà±ğ±àºÅ
+		# è®¡ç®—æ¯ä¸ªæ ·æœ¬åˆ†å­æœ€å¤§å€¼çš„ç±»åˆ«ç´¢å¼•
         max_prob = predict_y.max(axis=0).reshape(1, -1)
-		# ·ÀÖ¹ÏÂÒç
+		# é˜²æ­¢ä¸‹æº¢
         denominator = np.exp(predict_y - max_prob).sum(axis=0).reshape(1, -1)
-		# ¼ÆËãÑù±¾Àà±ğ¸ÅÂÊ
+		# è®¡ç®—æ¯ä¸ªæ ·æœ¬ä»å±ç±»åˆ«æ¦‚ç‡
         self.p = np.exp((predict_y - denominator - max_prob).T)
         self.p = self.p / (self.p.sum(axis=1).reshape(-1, 1))
         return self.p
