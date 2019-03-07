@@ -1,4 +1,7 @@
-##Naive Bayes Classifiers
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+## Naive Bayes Classifiers
 朴素贝叶斯分类器
 
 ### 简述
