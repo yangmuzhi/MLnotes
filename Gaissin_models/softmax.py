@@ -4,7 +4,7 @@ import numpy as np
 证明softmax输出每个class是1
 """
 
-def softmax(X, beta=beta, gmma=gmma):
+def softmax(X, beta, gmma):
     assert len(beta) == len(gmma)
     s = []
     for i in range(len(beta)):
@@ -22,12 +22,12 @@ if __name__ == '__main__':
 
     X = np.matrix(np.random.random([10,5]))
     num_class = 2
-    beta = []
-    gmma = []
+    beta = np.random.randint(0,10,5)
+    gmma = np.random.randint(0,10,5)
 
     for i in range(num_class):
         beta.append(np.matrix(np.random.random([5,1])))
         gmma.append(np.matrix(np.random.random([1])))
 
-    y_pred = softmax(X)
+    y_pred = softmax(X, beta, gamma)
     print(y_pred.sum(axis=0))
