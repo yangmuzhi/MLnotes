@@ -15,13 +15,13 @@ class Naive_bayes(object):
 
     def inference(self, X, y):
         num_date, num_feature = X.shape
-		
+
 		# 计算参数
         for i in range(self.num_class):
             class_x = X[(y==i).ravel()]
             self.N_C[i] = len(class_x)
             for j in range(num_feature):
-                self.N_X[i, j] = len(class_x[class_x[:, j] == 1]) 
+                self.N_X[i, j] = len(class_x[class_x[:, j] == 1])
         self.theta_x = self.N_X / self.N_C.reshape(-1, 1)
         self.theta_c = self.N_C / num_date
         return self.theta_c, self.theta_x
@@ -29,7 +29,7 @@ class Naive_bayes(object):
     def predict(self, X):
         num_date, num_feature = X.shape
         assert num_feature == self.num_feature
-		
+
 		# 计算后验分布分子的log值
         predict_y = np.log(self.theta_c.reshape(-1, 1)) + \
                     np.dot(np.log(self.theta_x), X.T) + \
