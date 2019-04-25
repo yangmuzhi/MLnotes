@@ -8,7 +8,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-Ns = 5 # 观测的样本数
+Ns = 5  # 观测的样本数
 np.random.seed(2)
 x = np.random.randn(Ns, 1) * 5  # 观测点x值
 error = np.random.randn(Ns, 1)  # 误差
@@ -31,6 +31,7 @@ x_mean μ = y_mean； μ = (x_mean' x_mean) ** -1 x_mean' y_mean
 s ** 2 =  σ**2/N + x_mean Σ x_mean'; Σ = (s ** 2 - σ ** 2 /N)(x_mean' x_mean) ** -1 
 """
 mu_prior = (np.linalg.pinv((x_expand_center.T.dot(x_expand_center))).dot(x_expand_center.T)).dot(y_train_center)
+
 U, S, V_h = np.linalg.svd(x_expand_center, full_matrices=False)
 V = V_h.T
 mu_prior_svd = V.dot(np.diag(1 / S)).dot(U.T).dot(y_train_center)
@@ -40,6 +41,7 @@ sigma_prior = (y_train_center.var() - error_var) * np.linalg.pinv(x_expand_cente
 sigma_prior_svd = (y_train_center.var() - error_var) * V.dot(np.diag(1/S**2)).dot(V.T)
 print("按照伪逆计算的sigma_prior", sigma_prior)
 print("按照SVD计算的sigma_prior", sigma_prior_svd)
+
 """
 在了解先验μ和Σ后，对参数w进行估计
 再利用对高斯线性模型
@@ -48,6 +50,7 @@ w_sigma = (Σ ** -1 + x_mean' (σ ** 2/N)**-1 x_mean) ** -1
 w_mu = w_sigma(Σ **-1 μ + x_mean' (σ ** 2/N) ** -1 y_mean)
 p(w|D) = N(w|, (σ**2)**-1+x_mean' Σ ** {-1} x_mean)
 """
+
 w_sigma = np.linalg.pinv(np.linalg.pinv(sigma_prior) +
                    1/ error_var * x_expand_center.T.dot(x_expand_center))
 w_sigma_svd = V.dot(np.diag(1/S **2)).dot(V.T) * (y_train_center.var() - error_var) * \
@@ -62,6 +65,7 @@ print("按照伪逆计算的参数均值差后验:", w_mu)
 print("按照svd计算的参数均值差后验:", w_mu_svd)
 w_0 = y_train_center.mean() - x_expand_center.mean(axis=0).dot(w_mu_svd)
 y_predict = x_expand.dot(w_mu_svd) + w_0
+
 """
 预测y
 p(y|D) ∝ p(w|D)p(y|w)
@@ -71,8 +75,10 @@ p(y|D) = N(y|x w_mu, error_var + x w_wigma x')
 x_test = np.linspace(-30, 30, 24)[:, np.newaxis]
 x_test_expand = np.hstack((x_test, x_test **2))
 y_test = (x_test - 4) ** 2
+
 y_predict_mean = x_test_expand.dot(w_mu_svd) +w_0
 y_predict_std = np.sqrt(error_var + np.diag(x_test_expand.dot(w_sigma_svd.dot(x_test_expand.T))))[:, np.newaxis]
+
 
 figure = plt.figure(1)
 plt.plot(x_test.ravel(), y_test.ravel(), label="True")
