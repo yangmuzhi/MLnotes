@@ -11,7 +11,15 @@
 
 - 单独算法  
 
-  - [x] naive bayes 分类器
-  - [x] Gaussin 模型
+  - [x] [naive bayes 分类器](./algorithms/naive_bayes_clf)
+
+  - [x] [Gaussin 模型](./algorithms/Gaussin_models)
+
   - [ ] 蒙特卡罗 采样
-    - [x] rejection sampling 拒绝采样
+    - [x] [rejection sampling 拒绝采样](./algorithms/MC_sampling/MC_rej_sampling.py)
+
+  - [ ] [线性模型](./algorithms/linear_models)
+    [x] [最小二乘法回归基于tensorflow](./algorithms/linear_models/linear_reg_ls.py)
+
+  - [ ] 似然估计
+    - [x] [极大似然估计: 以高斯分布为例](./algorithms/MLE_MAP/mle.py)
