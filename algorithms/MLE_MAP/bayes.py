@@ -22,22 +22,22 @@ np.log(y).sum()
 #
 t_x = tf.placeholder(tf.float32, shape=None)
 #
-t_mu = tf.Variable(0.0, dtype=tf.float32)
-t_sigma = tf.Variable(0.0, dtype=tf.float32)
+t_mu = tf.Variable(0, dtype=tf.float32)
+t_sigma = tf.Variable(0, dtype=tf.float32)
 
 def t_normal(X, mu=t_mu, sigma=t_sigma):
     y = tf.multiply(1/tf.multiply(tf.sqrt(2 * np.pi),sigma),
         tf.exp(-tf.square(X - mu) / (2*tf.square(sigma))))
     return y
 
-
-cost = tf.reduce_mean(tf.log(t_normal(t_x)))
-
-sess.run(cost,  {t_x: X})
+gaussian_dist = tf.contrib.distributions.Normal(loc=t_mu, scale=t_sigma)
+log_prob = gaussian_dist.log_prob(value=t_x)
+neg_log_likelihood = -1.0 * tf.reduce_sum(log_prob)
+# cost = tf.reduce_mean(tf.log(t_normal(t_x)))
 
 # 优化
 optimizer = tf.train.GradientDescentOptimizer(0.01)
-train_op = optimizer.minimize(-cost)
+train_op = optimizer.minimize(neg_log_likelihood)
 
 #
 sess = tf.Session()
@@ -45,7 +45,7 @@ init = tf.global_variables_initializer()
 sess.run(init)
 for _ in range(500):
     sess.run(train_op, {t_x: X})
-    print('cost: ',sess.run(cost,  {t_x: X}))
+    print('cost: ',sess.run(neg_log_likelihood,  {t_x: X}))
     # print('\n mu: {0}\t   sigma: {1}'.format(
     #         sess.run(t_mu,  {t_x: X}),
     #         sess.run(t_sigma, {t_x: X})))
