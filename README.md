@@ -3,10 +3,11 @@
 
 
 - 章节实现
-  - [x] 第三章 离散数据的生成模型
-  - [x] 第四章 高斯模型
-  - [x] 第五章 贝叶斯学派统计
+  - [x] 第三章 [离散数据的生成模型](./chapters/chapter_3)
+  - [x] 第四章 [高斯模型](./chapters/chapter_4)
+  - [x] 第五章 [贝叶斯学派统计](./chapters/chapter_5)
   - [ ] 第六章 频率学派统计
+  - [x] 第七章 [线性回归](./chapters/chapter_7)
 
 
 - 单独算法  
@@ -31,5 +32,5 @@
      - [ ] randomForest
      - [ ] xgboost (先挖一个坑，希望以后可以填上...)
      - [ ] mcts 蒙特卡罗树搜索
-     
+
   - [ ] boosting & bagging
