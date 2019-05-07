@@ -107,3 +107,6 @@ venv.bak/
 # model
 .model/
 model/
+
+# test
+.test/

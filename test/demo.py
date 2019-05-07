@@ -285,7 +285,7 @@ def cvt(data, v, max_depth = 500, Nmin = 5, labels = {}):
             min_ind = i
     return full_t[min_ind]
 
-    
+
 
 def error_function(split_point, split_var, data):
     """Function to minimize when choosing split point."""

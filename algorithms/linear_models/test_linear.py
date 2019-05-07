@@ -2,7 +2,7 @@ from algorithms.linear_models.linear_reg_ls import linear_reg_ls
 import numpy as np
 import tensorflow as tf
 
-#-------------------------date-----------------------------------
+#-------------------------data-----------------------------------
 N = 1000
 num_feature = 5
 X = np.random.uniform(0,10,[N,5])
