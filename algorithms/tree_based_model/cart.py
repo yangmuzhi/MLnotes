@@ -2,17 +2,14 @@
 Cart for both regression and classifying
 
 min[ min sum (y_i - c1)^2 + min sum (y_j - c2)^2]
-每次节点是二叉树
 
-一个难点 如何优雅的表示树？？使用类
-
-
-最基础的方法写完
+二叉树
 
 """
 import numpy as np
 import scipy
 import time
+# import pysnooper
 
 class Node:
 
@@ -31,7 +28,6 @@ class Node:
         self.split_var = None # 分割变量 str
         self.split_value = None
 
-
     @property
     def isend(self):
         """判断是否是一棵树的end"""
@@ -43,22 +39,27 @@ class Tree:
         self.max_depth = max_depth
         self.debug = debug
 
-    def lookup(self, x):
+    # @pysnooper.snoop()
+    def reg_lookup(self, x):
         """
         data 从root进入，然后输出end node的value
         x 是numpy.array
         """
-        node = self.root
-        while node.isend:
+        assert not self.root.isend, "root未分裂"
+        next_node = self.root
+
+        while not next_node.isend:
+            node = next_node
             if x[node.split_var] <= node.split_value:
-                node = node.left
+                next_node = node.left
             else:
-                node = node.right
+                next_node = node.right
+            next_end = node.isend
         return node.y_value.mean()
 
     def predict(self, data):
         """在lookup基础上"""
-        pass
+        raiseNotImplementedError("tree.predict: not implemented!")
 
     def _random_split(self, node):
         var = np.random.choice(node.x_data.shape[1])
@@ -104,14 +105,13 @@ class Tree:
         if error:
             return best_split_var, best_split_value
         else:
-            return "done!"
+            return
 
     def _reg_error_func(self, split_value, split_var, x_data, y):
         ind_left = x_data[:,split_var] >= split_value
         ind_right = x_data[:,split_var] < split_value
         error = np.square(y[ind_left] - np.mean(y[ind_left])).sum() + np.square(
                     y[ind_right] - np.mean(y[ind_right])).sum()
-
         return error
 
     def split(self,node,x_data,y,depth):
@@ -125,7 +125,7 @@ class Tree:
         if self.debug:
             print("depth", depth)
         if depth >= self.max_depth:
-            print("done")
+            # print("done")
             return
 
         # 赋值
@@ -150,22 +150,43 @@ class Tree:
         self.split(node.right,x_data_right,y_right,depth+1)
 
 
+
+
 #----------------------------------------------------------------------
 
 class CART:
+    """
+    cart封装
+    """
+    def __init__(self):
+        pass
 
-    def __init__(self, X, y):
-        self.X = X
+    def train_reg(self, X, y, max_depth=5, regularization=False, debug=False):
+        """
+        Args:
+            X: train data
+            y: label
+        """
         self.y = y
-
-    def _reg_node_loss(self, j, s, regularization=False):
-        """
-        每次节点是二叉树, avg(y|x in R(j,s))
-        """
-        pass
-
-    def train_reg(self, regularization=False):
-        pass
+        self.X = X
+        self.tree = Tree(max_depth=max_depth, debug=debug)
+        self.tree.split(self.tree.root, x_data=X, y=y, depth=0)
 
     def train_clf(self):
         pass
+
+    def predict(self, X):
+        """
+        Args:
+            X: data
+        """
+        self.y_pred = np.array(list(map(lambda x: self.tree.reg_lookup(x), X)))
+
+        return self.y_pred
+
+    def reg_loss(self, y_pred=None, y=None):
+        if not y_pred:
+            y_pred = self.y_pred
+            y = np.array(self.y).reshape(-1)
+            #
+        return np.mean(np.abs(y_pred - y))

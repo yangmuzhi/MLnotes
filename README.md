@@ -21,14 +21,15 @@
 
   - [ ] [线性模型](./algorithms/linear_models)
 
-    [x] [最小二乘法回归基于tensorflow](./algorithms/linear_models/linear_reg_ls.py)
+    - [x] [最小二乘法回归基于tensorflow](./algorithms/linear_models/linear_reg_ls.py)
 
   - [ ] 似然估计
+
     - [x] [极大似然估计: 以高斯分布为例](./algorithms/MLE_MAP/mle.py)
 
   - [ ] 树模型
 
-     - [x] [CART](./algorithms/cart.py)
+     - [x] [CART](./algorithms/tree_based_model/cart.py)
      - [ ] randomForest
      - [ ] xgboost (先挖一个坑，希望以后可以填上...)
      - [ ] mcts 蒙特卡罗树搜索
