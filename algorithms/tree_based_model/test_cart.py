@@ -35,8 +35,8 @@ tree.root.left.y_value.mean()
 import matplotlib.pyplot as plt
 cart = CART()
 cart.train_reg(X, y, max_depth=6)
-y_pred = cart.predict(X[0:100,:])
-y_test = y[0:100,:]
+y_pred = cart.predict(X)
+y_test = y
 type(y_pred)
 # y_pred - np.array(y).reshape(-1)
 i = 3
@@ -49,3 +49,4 @@ y_pred.shape
 loss = y_pred - np.array(y_test).reshape(-1)
 plt.plot(np.arange(loss.shape[0]), loss)
 plt.show()
+dir(cart)

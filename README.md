@@ -27,6 +27,8 @@
 
     - [x] [极大似然估计: 以高斯分布为例](./algorithms/MLE_MAP/mle.py)
 
+  - [ ] EM 算法
+
   - [ ] 树模型
 
      - [x] [CART](./algorithms/tree_based_model/cart.py)
@@ -35,3 +37,7 @@
      - [ ] mcts 蒙特卡罗树搜索
 
   - [ ] boosting & bagging
+
+  - [ ] 聚类 clustering
+    - [x] k-means
+    - [ ] mean shift
