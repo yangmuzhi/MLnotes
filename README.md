@@ -32,12 +32,13 @@
   - [ ] 树模型
 
      - [x] [CART](./algorithms/tree_based_model/cart.py)
-     - [ ] randomForest
-     - [ ] xgboost (先挖一个坑，希望以后可以填上...)
-     - [ ] mcts 蒙特卡罗树搜索
+     - [x] [randomforest](./algorithms/tree_based_model/randomforest.py)
+     - [ ] xgboost 
+
+  - [ ] mcts 蒙特卡罗树搜索
 
   - [ ] boosting & bagging
 
-  - [ ] 聚类 clustering
+  - [x] 聚类 clustering
     - [x] k-means
     - [x] mean shift

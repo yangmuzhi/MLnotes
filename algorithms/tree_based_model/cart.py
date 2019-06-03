@@ -34,7 +34,7 @@ class Node:
         return self.left is None and self.right is None
 
 class Tree:
-    def __init__(self, max_depth=10, debug=False):
+    def __init__(self, max_depth=10,debug=False):
         self.root = Node(True)
         self.max_depth = max_depth
         self.debug = debug
@@ -94,15 +94,15 @@ class Tree:
                 best_split_var = split_var
                 best_split_value = split
         if self.debug:
-            time.sleep(1)
-
+            time.sleep(0.1)
+            print("Node",node)
             print("split_var: ", split_var_list, "\n")
             print("error_list: ", error_list, "\n")
             if error:
                 print("best_split_value:", best_split_value, "\n")
                 print("best_split_var:", best_split_var, "\n")
             print("-"*10,"\n")
-        if error:
+        if error is not None:
             return best_split_var, best_split_value
         else:
             return
@@ -124,14 +124,23 @@ class Tree:
 
         if self.debug:
             print("depth", depth)
+            print("y",y)
         if depth >= self.max_depth:
             # print("done")
             return
+        if x_data.shape[0] <= 1:
+            return
+
 
         # 赋值
+        # rand_ind =
+        # x_data = x_data
         node.x_data = x_data
         node.y_value = y
-        split_var, split_value = self._greedy_split(node)
+        try:
+            split_var, split_value = self._greedy_split(node)
+        except:
+            return
         # split_var, split_value = self._random_split(node)
 
         node.split_var = split_var
@@ -146,6 +155,7 @@ class Tree:
 
         node.left = Node()
         node.right = Node()
+
         self.split(node.left,x_data_left,y_left,depth+1)
         self.split(node.right,x_data_right,y_right,depth+1)
 
