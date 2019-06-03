@@ -19,11 +19,11 @@
   - [ ] 蒙特卡罗 采样
     - [x] [rejection sampling 拒绝采样](./algorithms/MC_sampling/MC_rej_sampling.py)
 
-  - [ ] [线性模型](./algorithms/linear_models)
+  - [x] [线性模型](./algorithms/linear_models)
 
     - [x] [最小二乘法回归基于tensorflow](./algorithms/linear_models/linear_reg_ls.py)
 
-  - [ ] 似然估计
+  - [x] 似然估计
 
     - [x] [极大似然估计: 以高斯分布为例](./algorithms/MLE_MAP/mle.py)
 
@@ -40,4 +40,4 @@
 
   - [ ] 聚类 clustering
     - [x] k-means
-    - [ ] mean shift
+    - [x] mean shift
